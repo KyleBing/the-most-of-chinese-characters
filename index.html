@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>The Most of Chinese Characters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="characters.css">
+</head>
+<body>
+
+<div class="container">
+
+</div>
+
+<script>
+
+    // 字符的起止
+    let startPos    = 0x4E00
+    let endPos      = 0x9fa5
+
+    // let startPos = 0x1ffff
+    // let endPos = 0xfffff
+
+    const screenWidth = 640
+
+    const colsMin = 10
+    const colsMax = 20
+
+
+    window.onload = () => {
+        refreshContent()
+    }
+
+
+
+    // 载入字符
+    function loadCharacters(isShuffle, characterCount) {
+        let content = ''
+        for(let i=0; i < characterCount; i++){
+            let char = String.fromCharCode(getCharCode(isShuffle, i))
+            content = content.concat(char)
+        }
+
+        document.querySelector('.container').innerHTML = content
+    }
+
+    // 改变配置选项
+    function refreshContent() {
+        loadCharacters(false, endPos - startPos)
+    }
+
+
+    // item 获取宽度
+    function getItemWidth() {
+        let width = document.documentElement.offsetWidth
+        let itemWidth = 20
+        if(width > screenWidth){
+            itemWidth = width / colsMax
+        } else {
+            itemWidth = width / colsMin
+        }
+        // return Math.floor(itemWidth)
+        return itemWidth - 1; // 消除最后一个字换行
+    }
+
+    // 获取字符编码
+    function getCharCode(isShuffle, position) {
+        return startPos + position
+    }
+
+    // 4E00-9FA5 unicode 常用汉字范围
+
+
+    function $(a) {
+        return document.querySelector(a)
+    }
+
+    function $s(a) {
+        return document.querySelectorAll(a)
+    }
+</script>
+
+<script type="text/javascript" src="https://hm.baidu.com/hm.js?2d2b37bc9d03f0b13ca0346cd1c37a11"></script>
+
+</body>
+</html>
